@@ -1,0 +1,9 @@
+/.idea/
+/venv/
+.vs
+*.pyc
+*.log
+*.log.*
+*.pickle
+/SysConfig.toml
+/Applications/CalcRerun/CalcRerun.toml
