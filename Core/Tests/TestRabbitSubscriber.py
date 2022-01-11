@@ -17,8 +17,8 @@ class TestRabbitSubscribe(RabbitSubscribeInstance):
         self.start_consuming()
 
     def callback(self, channel, method, properties, body):
-        # print(channel: {channel}, method: {method}, properties: {properties}, body: {body}')
-        print(f'body: {body}')
+        print(f'channel: {channel}, method: {method}, properties: {properties}, body: {body}')
+        # print(f'body: {body}')
 
 
 if __name__ == '__main__':

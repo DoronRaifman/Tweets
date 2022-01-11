@@ -64,8 +64,10 @@ class RabbitPublishInstance(RabbitBase):
 class RabbitSubscribeInstance(RabbitBase):
     def __init__(self) -> None:
         super().__init__()
+        self.queue_name = ''
 
     def consume_register(self, queue_name: str, auto_ack: bool = True) -> None:
+        self.queue_name = queue_name
         if queue_name not in RabbitBase.queue:
             raise RabbitException(f'Queue {queue_name} not exist')
         try:
@@ -99,10 +101,11 @@ class RabbitSubscribeInstance(RabbitBase):
             raise RabbitException(f'stop_consuming exception: {ex}')
 
     @staticmethod
-    def callback_static(channel: str, method: str, properties: str, body: bytes) -> None:
-        queue = RabbitBase.queue[RabbitBase.base_queue_name]
+    def callback_static(channel: object, method, properties: object, body: bytes) -> None:
+        queue_name = method.routing_key
+        queue = RabbitBase.queue[queue_name]
         myself: RabbitSubscribeInstance = queue['myself']
         myself.callback(channel, method, properties, body)
 
     def callback(self, channel, method, properties, body) -> None:
-        print(f'channel: {channel}, method: {method}, properties: {properties}, body: {body}')
+        print(f'rx callback: channel: {channel}, method: {method}, properties: {properties}, body: {body}')
