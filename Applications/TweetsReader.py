@@ -2,7 +2,7 @@ import os
 
 
 class TweetsReader:
-    csv_file_name = os.path.abspath(os.path.join('..', 'Data', 'TweeterData.csv'))
+    csv_file_name = os.path.abspath(os.path.join('..', 'Data', 'TwitterData.csv'))
     tweets = []
     field_names = []
     field_indexs = {}
